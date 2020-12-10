@@ -2,12 +2,13 @@
 
 @section('content')
 
-    <h1>Criar Loja</h1>
-    <form action="{{ route('admin.stores.store') }}" method="post">
-        @csrf
+    <h1>Criar Produto</h1>
+    <form action="{{ route('admin.products.store') }}" method="post">
+
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
         <div class="form-group">
-            <label for="">Nome Loja</label>
+            <label for="">Nome Produto</label>
             <input class="form-control" type="text" name="name">
         </div>
 
@@ -17,13 +18,13 @@
         </div>
 
         <div class="form-group">
-            <label for="">Telefone</label>
-            <input class="form-control" type="text" name="phone">
+            <label for="">Conteúdo</label>
+            <textarea class="form-control" cols="30" rows="10" name="body"></textarea>
         </div>
 
         <div class="form-group">
-            <label for="">Celular/Whatsapp</label>
-            <input class="form-control" type="text" name="mobile_phone">
+            <label for="">Preço</label>
+            <input class="form-control" type="text" name="price">
         </div>
 
         <div class="form-group">
@@ -32,16 +33,16 @@
         </div>
 
         <div class="form-group">
-            <label for="">Usuário</label>
-            <select class="form-control" name="user" id="">
-                @foreach ($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+            <label for="">Lojas</label>
+            <select class="form-control" name="store" id="">
+                @foreach ($stores as $store)
+                    <option value="{{ $store->id }}">{{ $store->name }}</option>
                 @endforeach
             </select>
         </div>
 
         <div>
-            <button class="btn btn-lg btn-success" type="submit">Criar Loja</button>
+            <button class="btn btn-lg btn-success" type="submit">Criar Produto</button>
         </div>
     </form>
 
