@@ -1,49 +1,63 @@
 @extends('layouts.app')
 
+
 @section('content')
-
     <h1>Criar Produto</h1>
-    <form action="{{ route('admin.products.store') }}" method="post">
-
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <form action="{{route('admin.products.store')}}" method="post">
+        @csrf
 
         <div class="form-group">
-            <label for="">Nome Produto</label>
-            <input class="form-control" type="text" name="name">
+            <label>Nome Produto</label>
+            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}">
+
+            @error('name')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="">Descrição</label>
-            <input class="form-control" type="text" name="description">
+            <label>Descrição</label>
+            <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" value="{{old('description')}}">
+
+            @error('description')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="">Conteúdo</label>
-            <textarea class="form-control" cols="30" rows="10" name="body"></textarea>
+            <label>Conteúdo</label>
+            <textarea name="body" id="" cols="30" rows="10" class="form-control @error('body') is-invalid @enderror">{{old('body')}}</textarea>
+
+            @error('body')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
+        </div>
+
+
+        <div class="form-group">
+            <label>Preço</label>
+            <input type="text" name="price" class="form-control @error('price') is-invalid @enderror" value="{{old('price')}}">
+
+            @error('price')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="">Preço</label>
-            <input class="form-control" type="text" name="price">
-        </div>
-
-        <div class="form-group">
-            <label for="">Slug</label>
-            <input class="form-control" type="text" name="slug">
-        </div>
-
-        <div class="form-group">
-            <label for="">Lojas</label>
-            <select class="form-control" name="store" id="">
-                @foreach ($stores as $store)
-                    <option value="{{ $store->id }}">{{ $store->name }}</option>
-                @endforeach
-            </select>
+            <label>Slug</label>
+            <input type="text" name="slug" class="form-control">
         </div>
 
         <div>
-            <button class="btn btn-lg btn-success" type="submit">Criar Produto</button>
+            <button type="submit" class="btn btn-lg btn-success">Criar Produto</button>
         </div>
     </form>
-
 @endsection
