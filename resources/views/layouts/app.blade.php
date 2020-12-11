@@ -16,32 +16,35 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link @if (request()->is('admin/stores')) active @endif"  aria-current="page" href="{{ route('admin.stores.index') }}">
-                    Lojas
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link @if (request()->is('admin/products')) active @endif"  href="{{ route('admin.products.index') }}">
-                    Produtos
-                </a>
-              </li>
-            </ul>
 
-            <div class="my-2 my-lg-0">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="event.preventDefault();
-                                                                document.querySelector('form.logout').submit();">
-                            Sair
-                        </a>
-                        <form action="{{ route('logout') }}" class="logout" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </li>
+            @auth
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link @if (request()->is('admin/stores')) active @endif"  aria-current="page" href="{{ route('admin.stores.index') }}">
+                        Lojas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (request()->is('admin/products')) active @endif"  href="{{ route('admin.products.index') }}">
+                        Produtos
+                    </a>
+                </li>
                 </ul>
-            </div>
+
+                <div class="my-2 my-lg-0">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="event.preventDefault();
+                                                                    document.querySelector('form.logout').submit();">
+                                Sair
+                            </a>
+                            <form action="{{ route('logout') }}" class="logout" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            @endauth
 
           </div>
         </div>
