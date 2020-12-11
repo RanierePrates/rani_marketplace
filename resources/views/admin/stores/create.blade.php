@@ -8,27 +8,48 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
             <label for="">Nome Loja</label>
-            <input class="form-control" type="text" name="name">
+            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name">
+
+            @error('name')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="">Descrição</label>
-            <input class="form-control" type="text" name="description">
+            <input class="form-control @error('description') is-invalid @enderror" type="text" name="description">
+            @error('description')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="">Telefone</label>
-            <input class="form-control" type="text" name="phone">
+            <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone">
+            @error('phone')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="">Celular/Whatsapp</label>
-            <input class="form-control" type="text" name="mobile_phone">
+            <input class="form-control @error('mobile_phone') is-invalid @enderror" type="text" name="mobile_phone">
+            @error('mobile_phone')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="">Slug</label>
-            <input class="form-control" type="text" name="slug">
+            <input class="form-control @error('slug') is-invalid @enderror" type="text" name="slug">
         </div>
 
         <div>

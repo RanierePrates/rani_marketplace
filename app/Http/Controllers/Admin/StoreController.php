@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Store;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRequest;
 
 class StoreController extends Controller
 {
@@ -23,7 +24,7 @@ class StoreController extends Controller
         return view('admin.stores.create', compact('users'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->all();
 
@@ -39,7 +40,7 @@ class StoreController extends Controller
         return view('admin.stores.edit', compact('store'));
     }
 
-    public function update(Request $request, Store $store)
+    public function update(StoreRequest $request, Store $store)
     {
         $data = $request->all();
         $store->update($data);
