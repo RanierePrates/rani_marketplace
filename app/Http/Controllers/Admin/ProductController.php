@@ -109,6 +109,10 @@ class ProductController extends Controller
         $data['categories'] = !isset($data['categories']) ? [] : $data['categories'];
         $product->categories()->sync($data['categories']);
 
+        if ($request->hasFile('photos')) {
+            $images = $this->imageUpload($request, 'image');
+            $product->photos()->createMany($images);
+        }
 
         flash('Produto atualizado com sucesso')->success();
         return redirect()->route('admin.products.index');

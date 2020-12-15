@@ -17,6 +17,8 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth')->
     Route::resource('stores', 'StoreController');
     Route::resource('products', 'ProductController');
     Route::resource('categories', 'CategoryController');
+
+    Route::post('photos/remove', 'ProductPhotoController@remove')->name('photo.remove');
 });
 
 
