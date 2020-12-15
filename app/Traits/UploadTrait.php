@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use Illuminate\Http\Request;
-
 trait UploadTrait
 {
     private function imageUpload($images, $imageColumn = null)
