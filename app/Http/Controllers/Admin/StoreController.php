@@ -7,9 +7,13 @@ use App\Store;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequest;
+use App\Traits\UploadTrait;
+use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
 {
+    use UploadTrait;
+
     public function __construct()
     {
         $this->middleware('user.has.store')
@@ -30,8 +34,12 @@ class StoreController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->all();
-
         $user = auth()->user();
+
+        if ($request->has('logo')) {
+            $data['logo'] = $this->imageUpload($request->file('logo'));
+        }
+
         $user->store()->create($data);
 
         flash('Loja criada com sucesso')->success();
@@ -46,6 +54,15 @@ class StoreController extends Controller
     public function update(StoreRequest $request, Store $store)
     {
         $data = $request->all();
+
+        if ($request->has('logo')) {
+            if (Storage::disk('public')->exists($store->logo)) {
+                Storage::disk('public')->delete($store->logo);
+            }
+
+            $data['logo'] = $this->imageUpload($request->file('logo'));
+        }
+
         $store->update($data);
 
         flash('Loja atualizada com sucesso')->success();
