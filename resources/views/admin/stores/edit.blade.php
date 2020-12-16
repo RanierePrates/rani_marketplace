@@ -41,11 +41,6 @@
             @enderror
         </div>
 
-        <div class="form-group">
-            <label for="">Slug</label>
-            <input class="form-control" type="text" name="slug" value="{{ $store->slug }}">
-        </div>
-
         <div>
             <button class="btn btn-lg btn-success" type="submit">Atualizar Loja</button>
         </div>

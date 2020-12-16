@@ -57,11 +57,6 @@
             @enderror
         </div>
 
-        <div class="form-group">
-            <label for="">Slug</label>
-            <input class="form-control @error('slug') is-invalid @enderror" type="text" name="slug" value="{{ old('slug') }}">
-        </div>
-
         <div>
             <button class="btn btn-lg btn-success" type="submit">Criar Loja</button>
         </div>
