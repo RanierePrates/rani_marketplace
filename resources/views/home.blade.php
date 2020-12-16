@@ -1,23 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+    <div class="row front">
+        @foreach ($products as $key => $product)
+            <div class="col-md-4">
+                <div class="card" style="width: 100%">
+                    @if ($product->photos->count())
+                        <img src="{{ asset('storage/' . $product->photos->first()->image) }}" alt="" class="card-img-top">
                     @endif
-
-                    You are logged in!
+                    <div class="card-body">
+                        <h2 class="card-title">{{ $product->name }}</h2>
+                        <p class="card-text">{{ $product->description }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
+            @if (($key + 1) % 3 == 0) </div><div class="row front"> @endif
+        @endforeach
     </div>
-</div>
+
 @endsection
