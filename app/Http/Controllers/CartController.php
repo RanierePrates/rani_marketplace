@@ -8,7 +8,8 @@ class CartController extends Controller
 {
     public function index()
     {
-        dd(session()->get('cart'));
+        $cart = session()->has('cart') ? session()->get('cart') : [];
+        return view('cart', compact('cart'));
     }
 
     public function add(Request $request)
@@ -26,5 +27,29 @@ class CartController extends Controller
         return redirect()->route('product.single', [
             'slug' => $product['slug']
         ]);
+    }
+
+    public function remove($slug)
+    {
+        if (!session()->has('cart')) {
+            return redirect()->route('cart.index');
+        }
+
+        $products = session()->get('cart');
+
+        $products = array_filter($products, function ($product) use ($slug) {
+            return $product['slug'] != $slug;
+        });
+
+        session()->put('cart', $products);
+        return redirect()->route('cart.index');
+    }
+
+    public function cancel()
+    {
+        session()->forget('cart');
+
+        flash('Compra cancelada')->success();
+        return redirect()->route('cart.index');
     }
 }
