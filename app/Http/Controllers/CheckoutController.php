@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PagSeguro\Configuration\Configure;
+use PagSeguro\Services\Session;
 
 class CheckoutController extends Controller
 {
@@ -13,5 +15,20 @@ class CheckoutController extends Controller
         }
 
         return view('checkout');
+    }
+
+    private function makePagSeguroSession()
+    {
+        if (session()->has('pagseguro_session_code')) {
+            return session()->get('pagseguro_session_code');
+        }
+
+        $sessionCode = Session::create(
+            Configure::getAccountCredentials()
+        );
+
+        session()->put('pagseguro_session_code', $sessionCode->getResult());
+
+        return session()->get('pagseguro_session_code');
     }
 }
