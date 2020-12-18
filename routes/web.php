@@ -28,6 +28,10 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth')->
     Route::post('photos/remove', 'ProductPhotoController@remove')->name('photo.remove');
 });
 
+Route::prefix('checkout')->name('checkout.')->group(function () {
+    Route::get('/', 'CheckoutController@index')->name('index');
+});
+
 
 Auth::routes();
 
