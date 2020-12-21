@@ -43,7 +43,7 @@
 
                 </div>
 
-                <button class="btn btn-success btn-lg">Efetuar Pagamento</button>
+                <button class="btn btn-success btn-lg processCheckout">Efetuar Pagamento</button>
 
             </form>
         </div>
@@ -59,6 +59,10 @@
     <script>
         let cardNumber = document.querySelector('input[name=card_number]');
         let spanBrand = document.querySelector('span.brand');
+        let expirationMonth = document.querySelector('input[name=card_month]');
+        let expirationYear = document.querySelector('input[name=card_year]');
+        let cvv = document.querySelector('input[name=card_cvv]');
+        let brand = '';
 
         cardNumber.addEventListener('keyup', function() {
 
@@ -66,10 +70,11 @@
                 PagSeguroDirectPayment.getBrand({
                     cardBin: cardNumber.value.substr(0, 6),
                     success: function (response) {
-                        let imgFlag = `<img src="https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/${response.brand.name}.png">`
+                        let imgFlag = `<img src="https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/${response.brand.name}.png">`;
                         spanBrand.innerHTML = imgFlag;
 
-                        getInstallments(40, response.brand.name);
+                        brand = response.brand.name;
+                        getInstallments(40);
                     },
                     error: function (error) {
                         console.log('error', error);
@@ -82,7 +87,25 @@
 
         });
 
-        function getInstallments(amount, brand) {
+        let submitButton = document.querySelector('button.processCheckout')
+
+        submitButton.addEventListener('click', function (event) {
+
+            event.preventDefault();
+
+            PagSeguroDirectPayment.createCardToken({
+                cardNumber: cardNumber.value,
+                brand: brand,
+                cvv: cvv.value,
+                expirationMonth: expirationMonth.value,
+                expirationYear: expirationYear.value,
+                success: function (response) {
+                    console.log(response)
+                }
+            });
+        })
+
+        function getInstallments(amount) {
             PagSeguroDirectPayment.getInstallments({
                 amount: amount,
                 brand: brand,
