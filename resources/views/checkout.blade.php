@@ -39,6 +39,8 @@
                         <input type="text" class="form-control" name="card_cvv">
                     </div>
 
+                    <div class="col-md-12 installments form-group"></div>
+
                 </div>
 
                 <button class="btn btn-success btn-lg">Efetuar Pagamento</button>
@@ -66,6 +68,8 @@
                     success: function (response) {
                         let imgFlag = `<img src="https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/${response.brand.name}.png">`
                         spanBrand.innerHTML = imgFlag;
+
+                        getInstallments(40, response.brand.name);
                     },
                     error: function (error) {
                         console.log('error', error);
@@ -77,5 +81,37 @@
             }
 
         });
+
+        function getInstallments(amount, brand) {
+            PagSeguroDirectPayment.getInstallments({
+                amount: amount,
+                brand: brand,
+                maxInstallmentNoInterest: 0,
+                success: function (response) {
+                    let selectInstallments = drawSelectInstallments(response.installments[brand])
+                    document.querySelector('div.installments').innerHTML = selectInstallments;
+                },
+                error: function (error) {
+
+                },
+                complete: function (response) {
+
+                }
+            });
+        }
+
+        function drawSelectInstallments(installments) {
+            let select = '<label>Opções de Parcelamento:</label>';
+
+            select += '<select class="form-control">';
+
+            for(let l of installments) {
+                select += `<option value="${l.quantity}|${l.installmentAmount}">${l.quantity}x de ${l.installmentAmount} - Total fica ${l.totalAmount}</option>`;
+            }
+
+            select += '</select>';
+
+            return select;
+        }
     </script>
 @endsection
