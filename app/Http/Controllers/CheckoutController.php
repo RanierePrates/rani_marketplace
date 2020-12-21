@@ -14,6 +14,8 @@ class CheckoutController extends Controller
             return redirect()->route('login');
         }
 
+        $this->makePagSeguroSession();
+
         return view('checkout');
     }
 
