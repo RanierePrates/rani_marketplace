@@ -19,18 +19,23 @@
 
             @auth
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link @if (request()->is('admin/stores*')) active @endif"  aria-current="page" href="{{ route('admin.stores.index') }}">
-                            Lojas
+                    <li class="nav-item @if (request()->is('admin/orders/my*')) active @endif">
+                        <a class="nav-link"  aria-current="page" href="{{ route('admin.orders.my') }}">
+                            Meus Pedidos
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if (request()->is('admin/products*')) active @endif"  href="{{ route('admin.products.index') }}">
+                    <li class="nav-item @if (request()->is('admin/stores*')) active @endif">
+                        <a class="nav-link"  aria-current="page" href="{{ route('admin.stores.index') }}">
+                            Loja
+                        </a>
+                    </li>
+                    <li class="nav-item @if (request()->is('admin/products*')) active @endif">
+                        <a class="nav-link"  href="{{ route('admin.products.index') }}">
                             Produtos
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if (request()->is('admin/categories*')) active @endif"  href="{{ route('admin.categories.index') }}">
+                    <li class="nav-item @if (request()->is('admin/categories*')) active @endif">
+                        <a class="nav-link"  href="{{ route('admin.categories.index') }}">
                             Categorias
                         </a>
                     </li>
@@ -61,5 +66,9 @@
         @include('flash::message')
         @yield('content')
     </div>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

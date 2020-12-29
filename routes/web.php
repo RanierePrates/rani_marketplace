@@ -30,6 +30,8 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth')->
     Route::resource('categories', 'CategoryController');
 
     Route::post('photos/remove', 'ProductPhotoController@remove')->name('photo.remove');
+
+    Route::get('orders/my', 'OrdersController@index')->name('orders.my');
 });
 
 Route::prefix('checkout')->name('checkout.')->group(function () {
