@@ -24,6 +24,10 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('cancel', 'CartController@cancel')->name('cancel');
 });
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('my-orders', 'UserOrderController@index')->name('user.orders');
+});
+
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth')->group(function () {
     Route::resource('stores', 'StoreController');
     Route::resource('products', 'ProductController');
