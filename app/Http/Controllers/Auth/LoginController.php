@@ -46,7 +46,7 @@ class LoginController extends Controller
         }
 
         if ($user->role == 'ROLE_USER' && session()->has('cart')) {
-            return redirect()->route('checkout.index');
+            return redirect()->route('user.orders');
         }
 
         return redirect()->route('home');

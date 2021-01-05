@@ -25,21 +25,24 @@ Route::prefix('cart')->name('cart.')->group(function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
+
     Route::get('my-orders', 'UserOrderController@index')->name('user.orders');
+
+    Route::prefix('admin')->name('admin.')->middleware(['access.control.store.admin'])->namespace('Admin')->group(function () {
+        Route::resource('stores', 'StoreController');
+        Route::resource('products', 'ProductController');
+        Route::resource('categories', 'CategoryController');
+
+        Route::post('photos/remove', 'ProductPhotoController@remove')->name('photo.remove');
+
+        Route::get('orders/my', 'OrdersController@index')->name('orders.my');
+        Route::get('notifications', 'NotificationController@notifications')->name('notifications.index');
+        Route::get('notifications/read/all', 'NotificationController@readAll')->name('notifications.read.all');
+        Route::get('notifications/read/{notification}', 'NotificationController@read')->name('notifications.read');
+    });
+
 });
 
-Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth')->group(function () {
-    Route::resource('stores', 'StoreController');
-    Route::resource('products', 'ProductController');
-    Route::resource('categories', 'CategoryController');
-
-    Route::post('photos/remove', 'ProductPhotoController@remove')->name('photo.remove');
-
-    Route::get('orders/my', 'OrdersController@index')->name('orders.my');
-    Route::get('notifications', 'NotificationController@notifications')->name('notifications.index');
-    Route::get('notifications/read/all', 'NotificationController@readAll')->name('notifications.read.all');
-    Route::get('notifications/read/{notification}', 'NotificationController@read')->name('notifications.read');
-});
 
 Route::prefix('checkout')->name('checkout.')->group(function () {
     Route::get('/', 'CheckoutController@index')->name('index');
