@@ -29,7 +29,7 @@
 
         <div class="form-group">
             <label for="">Telefone</label>
-            <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" value="{{ old('phone') }}">
+            <input class="form-control @error('phone') is-invalid @enderror" id="phone" type="text" name="phone" value="{{ old('phone') }}">
             @error('phone')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -39,7 +39,7 @@
 
         <div class="form-group">
             <label for="">Celular/Whatsapp</label>
-            <input class="form-control @error('mobile_phone') is-invalid @enderror" type="text" name="mobile_phone" value="{{ old('mobile_phone') }}">
+            <input class="form-control @error('mobile_phone') is-invalid @enderror" id="mobile_phone" type="text" name="mobile_phone" value="{{ old('mobile_phone') }}">
             @error('mobile_phone')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -62,4 +62,14 @@
         </div>
     </form>
 
+@endsection
+
+@section('scripts')
+    <script>
+        let maskPhone = new Inputmask('(99) 9999-9999');
+        maskPhone.mask(document.getElementById('phone'));
+
+        let maskMobilePhone = new Inputmask('(99) 99999-9999');
+        maskPhone.mask(document.getElementById('mobile_phone'));
+    </script>
 @endsection
