@@ -14,6 +14,11 @@ class Product extends Model
         'name', 'description', 'body', 'price', 'slug'
     ];
 
+    public function getThumbAttribute()
+    {
+        return $this->photos->first()->image;
+    }
+
     public function store()
     {
         return $this->belongsTo(Store::class);
